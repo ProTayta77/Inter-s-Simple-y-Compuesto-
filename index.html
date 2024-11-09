@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interés Simple y Compuesto</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #3b5998;
+            color: white;
+            padding: 2em;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+            color: #ffcc00;
+            text-shadow: 2px 2px #333;
+        }
+        h2 {
+            color: #3b5998;
+            text-shadow: 1px 1px #ddd;
+        }
+        .container {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .concepts, .calculator {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .concepts img {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .calculator input, .calculator select, .calculator button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            font-size: 1em;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e7f3ff;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #0056b3;
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #3b5998;
+            color: white;
+            margin-top: 20px;
+        }
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Interés Simple y Compuesto</h1>
+        <p>Descubre cómo funcionan y calcula tus intereses fácilmente</p>
+    </header>
+
+    <div class="container">
+        <!-- Sección de Conceptos -->
+        <div class="concepts">
+            <h2>📈 ¿Qué es el Interés Simple?</h2>
+            <p>El interés simple se calcula solo sobre el monto inicial (capital), sin considerar los intereses generados en periodos anteriores. Es ideal para inversiones o préstamos a corto plazo.</p>
+            <img src="https://www.monet.com.co/wp-content/uploads/2023/12/Monet-Blog-Interes-Simple-y-como-se-aplica-en-finanzas.png" alt="Interés Simple">
+
+            <h2>🚀 ¿Qué es el Interés Compuesto?</h2>
+            <p>El interés compuesto considera tanto el capital inicial como los intereses acumulados en periodos anteriores, generando así un crecimiento exponencial. Es ideal para inversiones a largo plazo.</p>
+            <img src="https://segurosypensionesparatodos.fundacionmapfre.org/media/ahorro/poder-interes-compuesto-1200x600-1.png" alt="Interés Compuesto">
+        </div>
+
+        <!-- Calculadora -->
+        <div class="calculator">
+            <h2>🧮 Calculadora de Interés</h2>
+            <label for="principal">Capital inicial (P):</label>
+            <input type="number" id="principal" placeholder="Ingrese el capital inicial" required>
+
+            <label for="rate">Tasa de interés (%) :</label>
+            <input type="number" id="rate" placeholder="Ingrese la tasa de interés anual" required>
+
+            <label for="time">Años (t):</label>
+            <input type="number" id="time" placeholder="Ingrese el número de años" required>
+
+            <label for="frequency">Frecuencia de Capitalización (interés compuesto):</label>
+            <select id="frequency">
+                <option value="1">Anual</option>
+                <option value="4">Trimestral</option>
+                <option value="12">Mensual</option>
+                <option value="365">Diaria</option>
+            </select>
+
+            <button onclick="calculateInterest()">Calcular</button>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Más información y herramientas en nuestro <a href="https://example.com">sitio web</a>.</p>
+    </footer>
+
+    <script>
+        function calculateInterest() {
+            // Obtener valores de entrada
+            const principal = parseFloat(document.getElementById("principal").value);
+            const rate = parseFloat(document.getElementById("rate").value) / 100;
+            const time = parseFloat(document.getElementById("time").value);
+            const frequency = parseInt(document.getElementById("frequency").value);
+
+            if (isNaN(principal) || isNaN(rate) || isNaN(time)) {
+                document.getElementById("result").innerHTML = "Por favor, ingrese valores válidos.";
+                return;
+            }
+
+            // Cálculo del interés simple
+            const simpleInterest = principal * rate * time;
+
+            // Cálculo del interés compuesto
+            const compoundInterest = principal * Math.pow((1 + rate / frequency), frequency * time) - principal;
+
+            // Mostrar los resultados
+            document.getElementById("result").innerHTML = `
+                <p>Interés Simple: $${simpleInterest.toFixed(2)}</p>
+                <p>Interés Compuesto: $${compoundInterest.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
